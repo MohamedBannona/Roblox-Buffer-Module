@@ -1,0 +1,12 @@
+{
+  "name": "Buffer",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Buffer": {
+        "$path": "buffer"
+      }
+    }
+  }
+}
