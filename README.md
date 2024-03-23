@@ -8,6 +8,7 @@ If roblox adds support for 64 bit numbers in buffers, this module will become ob
 - [Installation](#installation)
 - [API Reference](#api-reference)
 - [QnA](#qna)
+- [Plans](#the-future)
 
 ## Example Usage:
 ```lua
@@ -361,10 +362,16 @@ There is no Buffer:Tostring() method, instead you use tostring(Buffer)
 
 #### Can I store instances in Buffers?
 - No, numbers only (strings are stored as UTF-8), serialize.
+</br>
+
+## The Future
+- Add support for other data types (Vectors, Colors, Cframes, etc.)
+- Automatic Serialization and Deserialization for Instances
+- FromTable Constructor
 
 </br></br>
 You should try and estimate the total amount of data that's going to be stored in the buffer to decrease the amount of times new buffers have to be created
 </br>
 
 For more information on Roblox Buffers:
-[Api Reference](https://create.roblox.com/docs/reference/engine/libraries/buffer)[Devforum Post](https://devforum.roblox.com/t/introducing-luau-buffer-type-beta/2724894)
+[Api Reference](https://create.roblox.com/docs/reference/engine/libraries/buffer) [Devforum Post](https://devforum.roblox.com/t/introducing-luau-buffer-type-beta/2724894)
