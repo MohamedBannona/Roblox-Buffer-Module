@@ -1,8 +1,7 @@
 # Roblox Buffer Module
 
 Roblox Buffer Module V 1.0.0</br>
-This module is just a wrapper for the roblox buffer object with support for U64 and I64</br>
-If roblox adds support for 64 bit numbers in buffers, this module will become obsolete, please do not use it then.
+This module is just a wrapper for the roblox buffer object with support for U64 and I64 and other datatypes</br>
 
 - [Usage](#example-usage)
 - [Installation](#installation)
@@ -50,52 +49,79 @@ Using Rojo, simply add the module to your project and you're good to go!
 Using Roblox, Insert a module script and paste the contents of [init.luau](./buffer/init.luau) into it
 
 ## API Reference
-- [Constructors](#constructors)
-	- [new](#new)
-	- [FromBuffer](#FromBuffer)
-	- [FromString](#FromString)
-- [General](#general)
-	- [Length](#Length)
-	- [Merge](#Merge)
-	- [Get](#Get)
+<details><summary><a href="#constructors">Constructors</a></summary>
 
-- [Read](#Read)
-	- [Signed Integers](#signed-integers)
-		- [ReadI8](#ReadI8)
-		- [ReadI16](#ReadI16)
-		- [ReadI32](#ReadI32)
-		- [ReadI64](#ReadI64)
+- [new](#new)
+- [FromBuffer](#FromBuffer)
+- [FromString](#FromString)
+</details>
+<details><summary><a href="#general">General</a></summary>
 
-	- [Unsigned Integers](#unsigned-integers)
-		- [ReadU8](#ReadU8)
-		- [ReadU16](#ReadU16)
-		- [ReadU32](#ReadU32)
-		- [ReadU64](#ReadU64)
+- [Length](#Length)
+- [Merge](#Merge)
+- [Get](#Get)
+</details>
+<details><summary><a href="#read">Read</a></summary>
+<details><summary><a href="#signed-integers">Signed Integers</a></summary>
 
-	- [Floats](#floats)
-		- [ReadF32](#ReadF32)
-		- [ReadF64](#ReadF64)
+- [ReadI8](#ReadI8)
+- [ReadI16](#ReadI16)
+- [ReadI32](#ReadI32)
+- [ReadI64](#ReadI64)
+</details>
+<details><summary><a href="#unsigned-integers">Unsigned Integers</a></summary>
 
-	- [ReadString](#ReadString)
+- [ReadU8](#ReadU8)
+- [ReadU16](#ReadU16)
+- [ReadU32](#ReadU32)
+- [ReadU64](#ReadU64)
+</details>
+<details><summary><a href="#floats">Floats</a></summary>
 
-- [Write](#Write)
-	- [Signed Integers](#signed-integers)
-		- [WriteI8](#WriteI8)
-		- [WriteI16](#WriteI16)
-		- [WriteI32](#WriteI32)
-		- [WriteI64](#WriteI64)
+- [ReadF32](#ReadF32)
+- [ReadF64](#ReadF64)
+</details>
+<details><summary><a href="#vectors">Vectors</a></summary>
 
-	- [Unsigned Integers](#unsigned-integers)
-		- [WriteU8](#WriteU8)
-		- [WriteU16](#WriteU16)
-		- [WriteU32](#WriteU32)
-		- [WriteU64](#WriteU64)
+- [ReadVector3](#ReadVector3)
+- [ReadVector3int16](#ReadVector3int16)
+- [ReadVector2](#ReadVector2)
+- [ReadVector2int16](#ReadVector2int16)
+</details>
 
-	- [Floats](#floats)
-		- [WriteF32](#WriteF32)
-		- [WriteF64](#WriteF64)
+• [ReadString](#ReadString)
+</details>
+<details><summary><a href="#write">Write</a></summary>
+<details>
+<summary><a href="#signed-integers">Signed Integers</a></summary>
 
-	- [WriteString](#WriteString)
+- [WriteI8](#WriteI8)
+- [WriteI16](#WriteI16)
+- [WriteI32](#WriteI32)
+- [WriteI64](#WriteI64)
+</details>
+<details><summary><a href="#unsigned-integers">Unsigned Integers</a></summary>
+
+- [WriteU8](#WriteU8)
+- [WriteU16](#WriteU16)
+- [WriteU32](#WriteU32)
+- [WriteU64](#WriteU64)
+</details>
+<details><summary><a href="#floats">Floats</a></summary>
+
+- [WriteF32](#WriteF32)
+- [WriteF64](#WriteF64)
+</details>
+<details><summary><a href="#vectors">Vectors</a></summary>
+
+- [WriteVector3](#WriteVector3)
+- [ReadVector3int16](#WriteVector3int16)
+- [WriteVector2](#WriteVector2)
+- [WriteVector2int16](#WriteVector2int16)
+</details>
+
+• [WriteString](#WriteString)
+</details>
 
 ## Constructors
 ### new
@@ -263,6 +289,51 @@ Reads a string starting after `Offset`
 | `Offset` | `number` | Which byte to start reading after | ✅ |
 | `Length` | `number` | How many bytes to read | ✅ |
 
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `string` | `string` | The string that has been read
+
+## Vectors
+## ReadVector3
+Read a Vector3 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Vector` | `Vector3` | The Vector3 that has been read
+
+## ReadVector3int16
+Read a Vector3int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Vector` | `Vector3` | The Vector3int16 that has been read
+
+## ReadVector2
+Read a Vector2int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Vector` | `Vector2` | The Vector2 that has been read
+
+## ReadVector2int16
+Read a Vector2int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Vector` | `Vector2int16` | The Vector2int16 that has been read
+
 ## Write
 ## Signed Integers
 ### WriteI8
@@ -344,6 +415,35 @@ Writes a string to the buffer after `Offset`
 | `string` | `string` | The string to write | ✅ |
 | `Offset` | `number` | Which byte to start writing from after | ✅
 
+## Vectors
+## WriteVector3
+Writes a Vector3 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Vector` | `Vector3` | The Vector3 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
+## WriteVector3int16
+Writes a Vector3int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Vector` | `Vector3int16` | The Vector3int16 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
+## WriteVector2
+Writes a Vector2int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Vector` | `Vector2` | The Vector2 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
+## WriteVector2int16
+Writes a Vector2int16 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Vector` | `Vector2int16` | The Vector2int16 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
 ## tostring
 Converts each byte (or more) in the string to a character
 There is no Buffer:Tostring() method, instead you use tostring(Buffer)
@@ -352,7 +452,7 @@ There is no Buffer:Tostring() method, instead you use tostring(Buffer)
 ## QnA
 
 #### When should I use this module?
--	Probably never as f64 can represent higher values than u64
+-	When you want to store a wide range of datatypes easily with buffers
 
 #### When should I not use this module?
 - Always
@@ -365,13 +465,14 @@ There is no Buffer:Tostring() method, instead you use tostring(Buffer)
 </br>
 
 ## The Future
-- Add support for other data types (Vectors, Colors, Cframes, etc.)
+- Add support for other data types (Udims, Colors, Cframes, etc.)
 - Automatic Serialization and Deserialization for Instances
 - FromTable Constructor
+- Split module into multiple scripts
 
-</br></br>
-You should try and estimate the total amount of data that's going to be stored in the buffer to decrease the amount of times new buffers have to be created
 </br>
+You should try and estimate the total amount of data that's going to be stored in the buffer to decrease the amount of times new buffers have to be created
+</br></br>
 
 For more information on Roblox Buffers:
-[Api Reference](https://create.roblox.com/docs/reference/engine/libraries/buffer) [Devforum Post](https://devforum.roblox.com/t/introducing-luau-buffer-type-beta/2724894)
+[API Reference](https://create.roblox.com/docs/reference/engine/libraries/buffer), [Devforum Post](https://devforum.roblox.com/t/introducing-luau-buffer-type-beta/2724894)

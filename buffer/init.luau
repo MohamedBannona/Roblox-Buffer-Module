@@ -17,8 +17,7 @@
 ]]
 --[[
 	Roblox Buffer Module V 1.0.0
-	This module is just a wrapper for the roblox buffer object with support for U64 and I64 (imprecise)
-	If roblox adds support for 64 bit numbers in buffers, this module will become obsolete, please do not use it then
+	This module is just a wrapper for the roblox buffer object with support for U64 and I64 with support for other datatypes (imprecise)
 
 	Usage:
 	```lua
@@ -96,7 +95,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadI8(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(1) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 1); return 0 end
 	return buffer.readi8(self.Buffer, Offset)
 end
 
@@ -106,7 +105,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadI16(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(2) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 2); return 0 end
 	return buffer.readi16(self.Buffer, Offset)
 end
 
@@ -116,7 +115,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadI32(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(4) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4); return 0 end
 	return buffer.readi32(self.Buffer, Offset)
 end
 
@@ -128,7 +127,7 @@ end
 	</br>**NOTE** Numbers start to lose presicion after reaching a certain limit
 ]]
 function module:ReadI64(Offset): number
-	if not self.Buffer then self.Buffer = buffer.create(8) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8); return 0 end
 
 	local low = buffer.readi32(self.Buffer, Offset)
 	local high = buffer.readi32(self.Buffer, Offset + 4)
@@ -143,7 +142,7 @@ end
 	@param Offset [number] where to start writing from after
 ]]
 function module:WriteI8(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(1) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 1) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 1)
 
@@ -156,7 +155,7 @@ end
 	@param Offset [number] where to start writing from after
 ]]
 function module:WriteI16(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(2) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 2) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 2)
 
@@ -169,7 +168,7 @@ end
 	@param Offset [number] where to start writing from after
 ]]
 function module:WriteI32(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(4) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 4)
 
@@ -184,7 +183,7 @@ end
 	</br>**NOTE** Numbers start to lose presicion after reaching a certain limit
 ]]
 function module:WriteI64(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(8) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8) end
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 8)
 
 	local high = Value//I32Shift
@@ -201,7 +200,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadU8(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(1) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 1); return 0 end
 	return buffer.readu8(self.Buffer, Offset)
 end
 
@@ -211,7 +210,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadU16(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(2) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 2); return 0 end
 	return buffer.readu16(self.Buffer, Offset)
 end
 
@@ -221,7 +220,7 @@ end
 	@return [number] the number that has been read
 ]]
 function module:ReadU32(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(4) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4); return 0 end
 	return buffer.readu32(self.Buffer, Offset)
 end
 
@@ -233,7 +232,7 @@ end
 	</br>**NOTE** Numbers start to lose presicion after reaching a certain limit
 ]]
 function module:ReadU64(Offset): number
-	if not self.Buffer then self.Buffer = buffer.create(8) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8); return 0 end
 
 	local low = buffer.readu32(self.Buffer, Offset)
 	local high = buffer.readu32(self.Buffer, Offset + 4)
@@ -248,7 +247,7 @@ end
 	@param Value [number] the number to be written to the buffer
 ]]
 function module:WriteU8(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(1) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 1) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 1)
 
@@ -261,7 +260,7 @@ end
 	@param Value [number] the number to be written to the buffer
 ]]
 function module:WriteU16(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(2) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 2) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 2)
 
@@ -274,7 +273,7 @@ end
 	@param Value [number] the number to be written to the buffer
 ]]
 function module:WriteU32(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(4) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 4)
 
@@ -289,7 +288,7 @@ end
 	</br>**NOTE** Numbers start to lose presicion after reaching a certain limit
 ]]
 function module:WriteU64(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(8) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 8)
 
@@ -306,7 +305,7 @@ end
 	@return [number] the number that was read
 ]]
 function module:ReadF32(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(4) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4); return 0 end
 
 	return buffer.readf32(self.Buffer, Offset)
 end
@@ -317,7 +316,7 @@ end
 	@param Value [number] the number to be written to the buffer
 ]]
 function module:WriteF32(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(4) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 4)
 
@@ -331,7 +330,7 @@ end
 	@return [number] the number that was read
 ]]
 function module:ReadF64(Offset: number): number
-	if not self.Buffer then self.Buffer = buffer.create(8) return 0 end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8); return 0 end
 
 	return buffer.readf64(self.Buffer, Offset)
 end
@@ -342,7 +341,7 @@ end
 	@param Value [number] the number to be written to the buffer
 ]]
 function module:WriteF64(Value: number, Offset: number)
-	if not self.Buffer then self.Buffer = buffer.create(8) end
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8) end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, 8)
 
@@ -372,11 +371,139 @@ end
 	@return [string] the string that has been read
 ]]
 function module:ReadString(Offset: number, Count: number): string
-	if not self.Buffer then self.Buffer = buffer.create(Count + Offset) return "" end
+	if not self.Buffer then self.Buffer = buffer.create(Count + Offset); return "" end
 
 	self.Buffer = UpdateBuffer(self.Buffer, Offset, Count)
 
 	return buffer.readstring(self.Buffer, Offset, Count)
+end
+
+---------Vector3---------
+--[[
+	Writes a Vector3 to the buffer starting after `Offset`
+	@param Offset [number] which byte to start reading from after
+	@param Vector [Vector3] the Vector3 to be written to the buffer
+]]
+function module:WriteVector3(Vector: Vector3, Offset: number)
+	if not self.Buffer then self.Buffer = buffer.create(12 + Offset) end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 12)
+
+	buffer.writef32(self.Buffer, Offset, Vector.X)
+	buffer.writef32(self.Buffer, Offset + 4, Vector.Y)
+	buffer.writef32(self.Buffer, Offset + 8, Vector.Z)
+end
+
+--[[
+	Reads a Vector3 from the buffer starting from `Offset` + 1 to `Count` + `Offset`
+	@param Offset [number] which byte to start reading from
+	@return [Vector3] the Vector3 that has been read
+]]
+function module:ReadVector3(Offset: number): Vector3
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 12); return Vector3.zero end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 12)
+
+	local X = buffer.readf32(self.Buffer, Offset)
+	local Y = buffer.readf32(self.Buffer, Offset + 4)
+	local Z = buffer.readf32(self.Buffer, Offset + 8)
+
+	return Vector3.new(X, Y, Z)
+end
+
+---------Vector2---------
+--[[
+	Writes a vector3 to the buffer starting after `Offset`
+	@param Offset [number] which byte to start reading from after
+	@param Vector [Vector2] the Vector2 to be written to the buffer
+]]
+function module:WriteVector2(Vector: Vector2, Offset: number)
+	if not self.Buffer then self.Buffer = buffer.create(8 + Offset) end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 8)
+
+	buffer.writef32(self.Buffer, Offset, Vector.X)
+	buffer.writef32(self.Buffer, Offset + 4, Vector.Y)
+end
+
+--[[
+	Reads a Vector2 from the buffer starting from `Offset` + 1 to `Count` + `Offset`
+	@param Offset [number] which byte to start reading from
+	@return [Vector2] the Vector2 that has been read
+]]
+function module:ReadVector2(Offset: number): Vector2
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 8); return Vector2.zero end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 8)
+
+	local X = buffer.readf32(self.Buffer, Offset)
+	local Y = buffer.readf32(self.Buffer, Offset + 4)
+
+	return Vector2.new(X, Y)
+end
+
+---------Vector3int16---------
+--[[
+	Writes a Vector3int16 to the buffer starting after `Offset`
+	@param Offset [number] which byte to start reading from after
+	@param Vector [Vector3int16] the Vector3int16 to be written to the buffer
+]]
+function module:WriteVector3Int16(Vector: Vector3int16, Offset: number)
+	if not self.Buffer then self.Buffer = buffer.create(6 + Offset) end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 6)
+
+	buffer.writei16(self.Buffer, Offset, Vector.X)
+	buffer.writei16(self.Buffer, Offset + 2, Vector.Y)
+	buffer.writei16(self.Buffer, Offset + 4, Vector.Z)
+end
+
+--[[
+	Reads a Vector3int16 from the buffer starting from `Offset` + 1 to `Count` + `Offset`
+	@param Offset [number] which byte to start reading from
+	@return [Vector3int16] the Vector3int16 that has been read
+]]
+function module:ReadVector3int16(Offset: number): Vector3int16
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 6); return Vector3int16.new() end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 6)
+
+	local X = buffer.readi16(self.Buffer, Offset)
+	local Y = buffer.readi16(self.Buffer, Offset + 2)
+	local Z = buffer.readi16(self.Buffer, Offset + 4)
+	
+	return Vector3int16.new(X, Y, Z)
+end
+
+---------Vector2int16---------
+--[[
+	Writes a Vector2int16 to the buffer starting after `Offset`
+	@param Offset [number] which byte to start reading from after
+	@param Vector [Vector2int16] the Vector2int16 to be written to the buffer
+]]
+function module:WriteVector2int16(Vector: Vector2int16, Offset: number)
+	if not self.Buffer then self.Buffer = buffer.create(4 + Offset) end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 4)
+
+	buffer.writei16(self.Buffer, Offset, Vector.X)
+	buffer.writei16(self.Buffer, Offset + 2, Vector.Y)
+end
+
+--[[
+	Reads a Vector2int16 from the buffer starting from `Offset` + 1 to `Count` + `Offset`
+	@param Offset [number] which byte to start reading from
+	@return [Vector2int16] the Vector2int16 that has been read
+]]
+function module:ReadVector2int16(Offset: number): Vector2int16
+	if not self.Buffer then self.Buffer = buffer.create(Offset + 4); return Vector2int16.new() end
+
+	self.Buffer = UpdateBuffer(self.Buffer, Offset, 4)
+
+	local X = buffer.readi16(self.Buffer, Offset)
+	local Y = buffer.readi16(self.Buffer, Offset + 2)
+
+	return Vector2int16.new(X, Y)
 end
 
 ---------Other---------
