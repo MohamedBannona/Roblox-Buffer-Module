@@ -88,6 +88,11 @@ Using Roblox, Insert a module script and paste the contents of [init.luau](./buf
 - [ReadVector2](#ReadVector2)
 - [ReadVector2int16](#ReadVector2int16)
 </details>
+<details><summary><a href="#Udims">Udims</a></summary>
+
+- [ReadUdim](#ReadUdim)
+- [ReadUdim2](#ReadUdim2)
+</details>
 
 • [ReadString](#ReadString)
 </details>
@@ -118,6 +123,11 @@ Using Roblox, Insert a module script and paste the contents of [init.luau](./buf
 - [ReadVector3int16](#WriteVector3int16)
 - [WriteVector2](#WriteVector2)
 - [WriteVector2int16](#WriteVector2int16)
+</details>
+<details><summary><a href="#Udims">Udims</a></summary>
+
+- [WriteUdim](#WriteUdim)
+- [WriteUdim2](#WriteUdim2)
 </details>
 
 • [WriteString](#WriteString)
@@ -282,17 +292,6 @@ Reads a 64 bit float (8 bytes) starting after `Offset`
 | :-------- | :------- | :-------------------------
 | `number` | `number` | The number that has been read
 
-## ReadString
-Reads a string starting after `Offset`
-| Parameter | Type     | Description                | Required |
-| :-------- | :------- | :------------------------- | :-: |
-| `Offset` | `number` | Which byte to start reading after | ✅ |
-| `Length` | `number` | How many bytes to read | ✅ |
-
-| Returns | Type     | Description                |
-| :-------- | :------- | :-------------------------
-| `string` | `string` | The string that has been read
-
 ## Vectors
 ## ReadVector3
 Read a Vector3 to the buffer after `Offset`
@@ -333,6 +332,38 @@ Read a Vector2int16 to the buffer after `Offset`
 | Returns | Type     | Description                |
 | :-------- | :------- | :-------------------------
 | `Vector` | `Vector2int16` | The Vector2int16 that has been read
+
+## Udim
+## ReadUdim
+Read a Udim to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Udim` | `Udim` | The Udim that has been read
+
+## ReadUdim2
+Read a Udim2 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading from after | ✅
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `Udim2` | `Udim2` | The Udim2 that has been read
+
+## ReadString
+Reads a string starting after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading after | ✅ |
+| `Length` | `number` | How many bytes to read | ✅ |
+
+| Returns | Type     | Description                |
+| :-------- | :------- | :-------------------------
+| `string` | `string` | The string that has been read
 
 ## Write
 ## Signed Integers
@@ -444,6 +475,25 @@ Writes a Vector2int16 to the buffer after `Offset`
 | `Vector` | `Vector2int16` | The Vector2int16 to write | ✅ |
 | `Offset` | `number` | Which byte to start writing from after | ✅
 
+## Udims
+## WriteUdim
+Writes a Udim to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Udim` | `Udim` | The Udim to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
+## WriteUdim2
+Writes a Udim2 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Udim2` | `Udim2` | The Udim2 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
+
+| Returns | Type     | Description                | Required |
+| :------ | :------- | :------------------------- |
+| `size` | `number` | The size in bytes that has been written to the buffer 
+
 ## tostring
 Converts each byte (or more) in the string to a character
 There is no Buffer:Tostring() method, instead you use tostring(Buffer)
@@ -465,10 +515,10 @@ There is no Buffer:Tostring() method, instead you use tostring(Buffer)
 </br>
 
 ## The Future
-- Add support for other data types (Udims, Colors, Cframes, etc.)
+- Add support for other data types (Enums, Rects, Params(RaycastParams, OverlapParams), Cframes, etc.)
 - Automatic Serialization and Deserialization for Instances
 - FromTable Constructor
-- Split module into multiple scripts
+- Next Step: Enums (u16 for the actual Enum, u8 for the EnumItem)
 
 </br>
 You should try and estimate the total amount of data that's going to be stored in the buffer to decrease the amount of times new buffers have to be created
