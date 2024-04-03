@@ -1,6 +1,6 @@
 # Roblox Buffer Module
 
-Roblox Buffer Module V 1.0.0</br>
+Roblox Buffer Module V 1.2.1</br>
 This module is just a wrapper for the roblox buffer object with support for U64 and I64 and other datatypes</br>
 
 - [Usage](#example-usage)
@@ -60,6 +60,7 @@ Using Roblox, Insert a module script and paste the contents of [init.luau](./buf
 - [Length](#Length)
 - [Merge](#Merge)
 - [Get](#Get)
+- [tostring](#tostring)
 </details>
 <details><summary><a href="#read">Read</a></summary>
 <details><summary><a href="#signed-integers">Signed Integers</a></summary>
@@ -95,6 +96,7 @@ Using Roblox, Insert a module script and paste the contents of [init.luau](./buf
 </details>
 
 • [ReadString](#ReadString)
+• [ReadColor3](#ReadColor3)
 </details>
 <details><summary><a href="#write">Write</a></summary>
 <details>
@@ -131,6 +133,7 @@ Using Roblox, Insert a module script and paste the contents of [init.luau](./buf
 </details>
 
 • [WriteString](#WriteString)
+• [WriteColor3](#WriteColor3)
 </details>
 
 ## Constructors
@@ -365,6 +368,12 @@ Reads a string starting after `Offset`
 | :-------- | :------- | :-------------------------
 | `string` | `string` | The string that has been read
 
+## ReadColor3
+Reads a Color3 starting after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Offset` | `number` | Which byte to start reading after | ✅ |
+
 ## Write
 ## Signed Integers
 ### WriteI8
@@ -493,6 +502,13 @@ Writes a Udim2 to the buffer after `Offset`
 | Returns | Type     | Description                | Required |
 | :------ | :------- | :------------------------- |
 | `size` | `number` | The size in bytes that has been written to the buffer 
+
+## WriteColor3
+Writes a Color3 to the buffer after `Offset`
+| Parameter | Type     | Description                | Required |
+| :-------- | :------- | :------------------------- | :-: |
+| `Color` | `Color3` | The Color3 to write | ✅ |
+| `Offset` | `number` | Which byte to start writing from after | ✅
 
 ## tostring
 Converts each byte (or more) in the string to a character

@@ -2,21 +2,10 @@
 	Roblox Buffer Module, wrapper for the Roblox buffer
 	Copyright (C) 2024  Mohamed Bannona
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	This software is released under the CC0 1.0 Universal license.
 ]]
 --[[
-	Roblox Buffer Module V 1.0.0
+	Roblox Buffer Module V 1.2.1
 	This module is just a wrapper for the roblox buffer object with support for U64 and I64 with support for other datatypes (imprecise)
 
 	Usage:
@@ -57,6 +46,51 @@
 	For more info about the buffer object, see https://create.roblox.com/docs/reference/engine/libraries/buffer
 ]]
 
+export type Buffer = {
+	Length: (self: Buffer) -> number,
+	Merge: (self: Buffer, Buffer: buffer) -> Buffer,
+	Get: (self: Buffer) -> buffer,
+	ToString: (self: Buffer) -> string,
+	--------------------------------------------------
+	ReadU8: (self: Buffer, Offset: number) -> number,
+	ReadU16: (self: Buffer, Offset: number) -> number,
+	ReadU32: (self: Buffer, Offset: number) -> number,
+	ReadU64: (self: Buffer, Offset: number) -> number,
+	ReadF32: (self: Buffer, Offset: number) -> number,
+	ReadF64: (self: Buffer, Offset: number) -> number,
+	ReadString: (self: Buffer, Offset: number, Count: number) -> string,
+	ReadI8: (self: Buffer, Offset: number) -> number,
+	ReadI16: (self: Buffer, Offset: number) -> number,
+	ReadI32: (self: Buffer, Offset: number) -> number,
+	ReadI64: (self: Buffer, Offset: number) -> number,
+	ReadVector3: (self: Buffer, Offset: number) -> Vector3,
+	ReadVector3int16: (self: Buffer, Offset: number) -> Vector3int16,
+	ReadVector2: (self: Buffer, Offset: number) -> Vector2,
+	ReadVector2int16: (self: Buffer, Offset: number) -> Vector2int16,
+	ReadUdim: (self: Buffer, Offset: number) -> UDim,
+	ReadUdim2: (self: Buffer, Offset: number) -> UDim2,
+	ReadColor3: (self: Buffer, Offset: number) -> Color3,
+	--------------------------------------------------
+	WriteU8: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteU16: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteU32: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteU64: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteF32: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteF64: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteString: (self: Buffer, Value: string, Offset: number) -> (),
+	WriteI8: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteI16: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteI32: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteI64: (self: Buffer, Value: number, Offset: number) -> (),
+	WriteVector3: (self: Buffer, Value: Vector3, Offset: number) -> (),
+	WriteVector3int16: (self: Buffer, Value: Vector3int16, Offset: number) -> (),
+	WriteVector2: (self: Buffer, Value: Vector2, Offset: number) -> (),
+	WriteVector2int16: (self: Buffer, Value: Vector2int16, Offset: number) -> (),
+	WriteUdim: (self: Buffer, Value: UDim, Offset: number) -> (),
+	WriteUdim2: (self: Buffer, Value: UDim2, Offset: number) -> number,
+	WriteColor3: (self: Buffer, Value: Color3, Offset: number) -> ()
+}
+
 local module = {}
 module.__index = module
 module.__tostring = function(self)
@@ -67,8 +101,8 @@ end
 	Returns a new buffer of size `Size` or 1
 	@param Size [number] Initial size in bytes of the Buffer
 ]]
-function module.new(Size)
-	return setmetatable({Buffer = buffer.create(Size or 1)}, module)
+function module.new(Size): Buffer
+	return setmetatable({Buffer = buffer.create(Size or 1)}, module):: any
 end
 
 --[[
@@ -82,7 +116,7 @@ end
 	Merges two buffers together
 	@param Buffer [buffer] the buffer to merge with
 ]]
-function module:Merge(Buffer: buffer)
+function module:Merge(Buffer: buffer): Buffer
 	local newS = buffer.len(self.Buffer) + buffer.len(Buffer)
 	local newBuffer = buffer.create(newS)
 	buffer.copy(newBuffer, 0, self.Buffer)
@@ -102,7 +136,7 @@ end
 	Creates a new buffer who's bytes make up the string
 	@param String [string] the string to create the buffer from
 ]]
-function module.FromString(String: string)
+function module.FromString(String: string): Buffer
 	local buff = buffer.fromstring(String)
 
 	return module.FromBuffer(buff)
@@ -112,8 +146,8 @@ end
 	Creates a new buffer object using the provided buffer type
 	@param Buffer [buffer] the buffer to create with
 ]]
-function module.FromBuffer(Buffer: buffer)
-	return setmetatable({Buffer = Buffer}, module)
+function module.FromBuffer(Buffer: buffer): Buffer
+	return setmetatable({Buffer = Buffer}, module):: any
 end
 
 for _, mod in script.datatypes:GetChildren() do
